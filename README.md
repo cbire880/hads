@@ -52,16 +52,33 @@
    http://localhost:3000/
    ```
 
-### Phase 1.5/1.75 MVP API
+## Phase 1.5/1.75 MVP
+
+The **Phase 1.5/1.75 MVP** adds video and Vital Camp export support to HADS, enabling:
+
+- **Video Walkthrough Processing**: Upload MP4/MOV/AVI videos for reconstruction.
+- **Vital Camp Export Support**: Upload `.glb`, `.obj`, `.svg`, and `.dxf` exports for floor-plan/reconstruction ingestion.
+- **Deterministic Reconstruction Pipeline**: Fallback mode for environments without COLMAP/OpenCV.
+- **Baseline Device Recommendations**: Automated suggestions for motion sensors, smart switches, and more.
+
+### API Endpoints
 
 | Endpoint | Method | Description |
 | --- | --- | --- |
 | `/` | GET | Video/Vital Camp upload page. |
+| `/health` | GET | Liveness check. |
 | `/api/upload-video` | POST | Multipart upload for MP4/MOV/AVI videos and `.glb`/`.obj`/`.svg`/`.dxf` Vital Camp exports. |
 | `/api/jobs/:jobId` | GET | Processing status, progress, extracted floor-plan preview, and baseline device recommendations. |
-| `/api/pipeline/capabilities` | GET | Reports whether external tools such as COLMAP are available; falls back to deterministic MVP mode. |
+| `/api/pipeline/capabilities` | GET | Reports whether external tools such as COLMAP are available; falls back to deterministic MVP mode.
 
 The current MVP intentionally uses a deterministic reconstruction stub when COLMAP/OpenCV are not installed, so CI and local development can validate the upload/status/recommendation contract without native computer-vision dependencies.
+
+### Tutorial: Vital Camp Export to HADS
+
+1. **Export from Vital Camp**: Save your layout as `.glb`, `.obj`, `.svg`, or `.dxf`.
+2. **Upload to HADS**: Use the `/api/upload-video` endpoint or the web UI.
+3. **Review Recommendations**: Check `/api/jobs/:jobId` for device placement suggestions and floor-plan previews.
+4. **Proceed to Phase 2**: Use the output for BOM generation and provider contracting.
 
 ---
 

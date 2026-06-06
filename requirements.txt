@@ -1,0 +1,3 @@
+# HADS currently has no Python runtime dependencies.
+# This file is intentionally present so CI can run `pip install -r requirements.txt`
+# while the Phase 1.5/1.75 MVP uses the Node/Fastify upload and processing API.

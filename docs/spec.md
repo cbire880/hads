@@ -17,11 +17,11 @@
   - Draw walls, rooms, doors, and windows.
   - Support for manual uploads (CAD files, images, **3D models**).
   - Room labeling (e.g., kitchen, bedroom).
-- **Video Walkthrough Processing**:
-  - Upload video recordings (MP4, MOV, AVI).
-  - Support for **Vital Camp exports** (3D models + floor plans).
+- **Video Walkthrough Processing (Phase 1.5/1.75 MVP)**:
+  - Upload video recordings (MP4, MOV, AVI) for reconstruction.
+  - Support for **Vital Camp exports** (`.glb`, `.obj`, `.svg`, `.dxf`).
   - Progress tracker for video processing.
-  - Preview of the generated floor plan.
+  - Preview of the generated floor plan and baseline device recommendations.
 - **User Preferences**:
   - Budget, device brands, automation goals.
   - Toggle for advanced features (e.g., security, energy monitoring).
@@ -36,6 +36,8 @@
 |------------------------|--------|----------------------------------------------|
 | `/api/upload`          | POST   | Upload floor plans, preferences, or **3D models**.           |
 | `/api/upload-video`    | POST   | Upload and process MP4/MOV/AVI video walkthroughs or **Vital Camp exports** (`.glb`, `.obj`, `.svg`, `.dxf`).       |
+| `/health`              | GET    | Liveness check. |
+| `/api/pipeline/capabilities` | GET | Report external reconstruction tool availability and MVP fallback mode. |
 | `/api/jobs/:jobId`     | GET    | Return processing status, progress, floor-plan preview, and device recommendations. |
 | `/api/pipeline/capabilities` | GET | Report external reconstruction tool availability and MVP fallback mode. |
 | `/api/validate-layout` | POST   | Validate the generated floor plan or **3D model**.           |
@@ -45,8 +47,9 @@
 ## 3. Design Engine
 ### 3.1 AI Layout Generator
 #### **Features**
-- **3D Reconstruction**: Convert video walkthroughs or **Vital Camp scans** into 3D models.
-- **Floor Plan Extraction**: Generate 2D floor plans from 3D models or **Vital Camp exports**.
+- **3D Reconstruction (Phase 1.5/1.75 MVP)**: Convert video walkthroughs or **Vital Camp scans** into 3D models.
+- **Floor Plan Extraction (Phase 1.5/1.75 MVP)**: Generate 2D floor plans from 3D models or **Vital Camp exports** (`.svg`, `.dxf`).
+- **Baseline Device Recommendations (Phase 1.5/1.75 MVP)**: Automated suggestions for motion sensors, smart switches, and more.
 - **Device Placement**: Recommend optimal locations for devices (e.g., sensors, cameras, switches).
 - **Room Analysis**: Identify room types (e.g., kitchen, bedroom) and recommend automation features.
 
