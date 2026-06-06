@@ -29,13 +29,14 @@ flowchart TD
    - Interactive floor plan editor (React + Konva).
    - Video upload and processing.
    - User preferences form.
-2. **Video Processing (Phase 1.5/1.75 MVP)**:
-   - **Video Walkthrough Support**: Upload MP4/MOV/AVI videos for reconstruction.
-   - **Vital Camp Export Support**: Upload `.glb`, `.obj`, `.svg`, and `.dxf` exports for floor-plan/reconstruction ingestion.
-   - **3D Reconstruction**: Uses OpenCV, COLMAP, or Kiri Engine when available.
-   - **Deterministic MVP Fallback**: Fallback mode for CI/local development when native reconstruction tools are unavailable.
-   - **Floor Plan Extraction**: Extracts floor plans from generated models or Vital Camp `.svg`/`.dxf` exports.
-   - **Baseline Device Recommendations**: Automated suggestions for motion sensors, smart switches, and more.
+2. **Video Processing (Phase 2)**:
+   - **Local-First Design**: Prioritizes local tools (COLMAP, OpenCV, ffmpeg) over cloud dependencies.
+   - **Video Reconstruction**: Automated frame extraction and 3D reconstruction using the local toolchain.
+   - **External Tool Integration**: Plug-and-play support for local `colmap`, `ffmpeg`, and `python3`/`opencv` executables.
+   - **Deterministic Fallback**: Gracefully falls back to the deterministic MVP when native tools are unavailable to ensure CI/CD and developer environment stability.
+   - **Feature Extraction**: Detects architectural features (walls, doors, windows) from reconstructions or Vital Camp exports.
+   - **Enhanced Device Placement**: Context-aware recommendations for cameras, sensors, and switches based on detected features.
+   - **BOM Generation**: Automated Bill of Materials with unit costs, quantities, and priority-aware line items.
 
 ### Workflow
 1. User uploads a floor plan or video walkthrough.

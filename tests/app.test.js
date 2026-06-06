@@ -27,6 +27,17 @@ test("serves upload interface", async () => {
   });
 });
 
+test("reports local pipeline capabilities", async () => {
+  await withApp(async (app) => {
+    const response = await app.inject({ method: "GET", url: "/api/pipeline/capabilities" });
+    const capabilities = JSON.parse(response.body);
+
+    assert.equal(response.statusCode, 200);
+    assert.ok(["deterministic-mvp", "external-local-tools"].includes(capabilities.mode));
+    assert.equal(typeof capabilities.externalVideoAvailable, "boolean");
+  });
+});
+
 test("accepts Vital Camp exports and exposes completed job status", async () => {
   await withApp(async (app) => {
     const response = await app.inject({
@@ -57,6 +68,7 @@ test("accepts Vital Camp exports and exposes completed job status", async () => 
     assert.equal(job.progress, 100);
     assert.equal(job.uploadedFiles.length, 2);
     assert.equal(job.result.floorPlan.source, "home.svg");
+    assert.ok(job.result.billOfMaterials.estimatedTotalUsd > 0);
 
     const statusResponse = await app.inject({ method: "GET", url: `/api/jobs/${job.id}` });
     assert.equal(statusResponse.statusCode, 200);

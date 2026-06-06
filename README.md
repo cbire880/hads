@@ -17,8 +17,9 @@
 - **User Preferences**: Budget, device brands, and automation goals.
 
 ### Design Engine
-- **AI-Powered Layout Generator**: Convert layouts into device placement plans.
-- **BOM Generator**: Automatically generate a list of required hardware.
+- **Local Tool Integration**: Detect ffmpeg/COLMAP/OpenCV-style local tool availability and fall back safely when missing.
+- **AI-Powered Layout Generator**: Convert layouts and detected features into device placement plans.
+- **BOM Generator**: Automatically generate a list of required hardware with estimated costs.
 - **Provider Matching**: Contract local providers for installation and touch labor.
 
 ### Provisioning Layer
@@ -52,14 +53,16 @@
    http://localhost:3000/
    ```
 
-## Phase 1.5/1.75 MVP
+## Phase 1.5/1.75 MVP + Phase 2 Local Tools
 
-The **Phase 1.5/1.75 MVP** adds video and Vital Camp export support to HADS, enabling:
+The **Phase 1.5/1.75 MVP** adds video and Vital Camp export support to HADS. **Phase 2** advances that pipeline with local-first external tool integration and richer design outputs:
 
 - **Video Walkthrough Processing**: Upload MP4/MOV/AVI videos for reconstruction.
 - **Vital Camp Export Support**: Upload `.glb`, `.obj`, `.svg`, and `.dxf` exports for floor-plan/reconstruction ingestion.
-- **Deterministic Reconstruction Pipeline**: Fallback mode for environments without COLMAP/OpenCV.
-- **Baseline Device Recommendations**: Automated suggestions for motion sensors, smart switches, and more.
+- **Local External Tool Plan**: Detect and use local `ffmpeg`/`colmap` capability when available.
+- **Deterministic Reconstruction Fallback**: Stable mode for environments without native computer-vision tools.
+- **Feature-Aware Device Recommendations**: Automated suggestions for motion sensors, contact sensors, cameras, smart switches, and hubs.
+- **BOM Generation**: Estimated hardware quantities and costs from recommendations.
 
 ### API Endpoints
 
@@ -68,10 +71,10 @@ The **Phase 1.5/1.75 MVP** adds video and Vital Camp export support to HADS, ena
 | `/` | GET | Video/Vital Camp upload page. |
 | `/health` | GET | Liveness check. |
 | `/api/upload-video` | POST | Multipart upload for MP4/MOV/AVI videos and `.glb`/`.obj`/`.svg`/`.dxf` Vital Camp exports. |
-| `/api/jobs/:jobId` | GET | Processing status, progress, extracted floor-plan preview, and baseline device recommendations. |
-| `/api/pipeline/capabilities` | GET | Reports whether external tools such as COLMAP are available; falls back to deterministic MVP mode.
+| `/api/jobs/:jobId` | GET | Processing status, progress, extracted floor-plan preview, features, recommendations, and BOM. |
+| `/api/pipeline/capabilities` | GET | Reports whether local tools such as ffmpeg/COLMAP/OpenCV are available; falls back to deterministic MVP mode. |
 
-The current MVP intentionally uses a deterministic reconstruction stub when COLMAP/OpenCV are not installed, so CI and local development can validate the upload/status/recommendation contract without native computer-vision dependencies.
+The current pipeline intentionally keeps local external execution behind an adapter/plan boundary when COLMAP/OpenCV are not installed, so CI and local development can validate the upload/status/recommendation/BOM contract without native computer-vision dependencies.
 
 ### Tutorial: Vital Camp Export to HADS
 
@@ -86,6 +89,7 @@ The current MVP intentionally uses a deterministic reconstruction stub when COLM
 - [Architecture](docs/architecture.md)
 - [Specification](docs/spec.md)
 - [Deployment Roadmap](docs/deployment.md)
+- [Local Reconstruction Tools Setup](docs/local-reconstruction-tools.md)
 - [User Guide](docs/user-guide.md)
 
 ---

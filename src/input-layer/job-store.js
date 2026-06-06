@@ -77,6 +77,7 @@ export class JobStore {
       const result = await runReconstructionPipeline({
         jobId,
         uploadedFiles: job.uploadedFiles,
+        storageDir: this.storageDir,
       });
       this.updateJob(jobId, { status: "complete", progress: 100, result });
     } catch (error) {
