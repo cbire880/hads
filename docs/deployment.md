@@ -13,13 +13,12 @@ This roadmap outlines the **phases**, **milestones**, and **timelines** for depl
                         | - CI/CD pipeline
                         | - Input layer MVP (web interface)
                         | - Basic floor plan processing | Compass, Webmaster      |
-| **Phase 1.5: Video MVP** | Week 3-4       | - Video upload interface
+| **Phase 1.5/1.75 (MVP)** | Week 3-5     | - Video upload interface
                         | - 3D reconstruction pipeline
-                        | - Basic device placement recommendations | Forge, Webmaster         |
-| **Phase 1.75: Vital Camp Integration** | Week 4-5       | - Support for **Vital Camp exports** (3D models + floor plans)
-                        | - Tutorial for recording/uploading videos
-                        | - Test video processing pipeline with real-world inputs | Forge, Webmaster         |
-| **Phase 2: Design Engine** | Week 5-6     | - AI layout generator
+                        | - Vital Camp export support
+                        | - Baseline device recommendations | Forge, Webmaster         |
+| **Phase 2: Local Tools** | Week 5-6     | - Local external tool integration (ffmpeg/COLMAP)
+                        | - AI layout / feature generator
                         | - BOM generator
                         | - Provider matching MVP                  | Forge, Compass          |
 | **Phase 3: Provisioning** | Week 7-8     | - Home Assistant integration
@@ -70,24 +69,29 @@ This roadmap outlines the **phases**, **milestones**, and **timelines** for depl
    - Basic AI recommendations for device placement.
 
 #### **Deliverables**
-- [ ] Video upload interface.
-- [ ] 3D reconstruction pipeline.
-- [ ] Device placement recommendations.
+- [x] Video upload interface.
+- [x] 3D reconstruction pipeline.
+- [x] Device placement recommendations.
 
 ---
 
-### **Phase 2: Design Engine**
-**Objective**: Develop the AI-powered design engine.
+### **Phase 2: Local Tools**
+**Objective**: Integrate local external tools and develop the AI-powered design engine.
 
 #### **Tasks**
-1. **AI Layout Generator**:
-   - Convert floor plans into device placement plans.
-2. **BOM Generator**:
-   - Generate a list of required hardware.
-3. **Provider Matching**:
+1. **Local Tool Integration**:
+   - Plug-and-play support for ffmpeg and COLMAP.
+   - Deterministic fallback for developer environments.
+2. **AI Layout Generator**:
+   - Detect architectural features (walls, doors, windows).
+   - Convert floor plans into context-aware device placement plans.
+3. **BOM Generator**:
+   - Generate a list of required hardware with costs and priorities.
+4. **Provider Matching**:
    - Contract local providers for installation.
 
 #### **Deliverables**
+- [ ] Local tool integration.
 - [ ] AI layout generator.
 - [ ] BOM generator.
 - [ ] Provider matching MVP.
@@ -190,7 +194,7 @@ This roadmap outlines the **phases**, **milestones**, and **timelines** for depl
 ## 5. Risks and Mitigation
 | Risk                          | Mitigation Strategy                                                                 |
 |--------------------------------|-------------------------------------------------------------------------------------|
-| **Video Processing Delays**    | Use cloud-based processing for scalability.                                      |
+| **Video Processing Delays**    | Use prioritized local-first processing; schedule long-running jobs. |
 | **Provider Onboarding Delays** | Start onboarding early (Phase 2).                                                |
 | **Home Assistant Compatibility** | Test with multiple Home Assistant versions.                                     |
 | **User Adoption**             | Beta testing with real users to gather feedback.                                 |
